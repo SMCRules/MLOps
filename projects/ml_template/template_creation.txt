@@ -1,1 +1,14 @@
 # notes to create an empty scaffolding for ML project
+# branch and create directory
+miguel@BeAsT:~$ cd Deployment/MLOps/
+miguel@BeAsT:~/Deployment/MLOps$ git checkout -b feature_template
+miguel@BeAsT:~/Deployment/MLOps$ cd projects/
+miguel@BeAsT:~/Deployment/MLOps/projects$ mkdir ml_template
+miguel@BeAsT:~/Deployment/MLOps/projects$ cd ml_template/
+# folder structure
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ mkdir -p {data,notebooks,src,models,api,tests}
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ touch README.md
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ touch requirements.txt
+  
+
+
