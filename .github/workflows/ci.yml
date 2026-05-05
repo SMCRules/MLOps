@@ -26,6 +26,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Lint code (flake8)
+      	working-directory: projects/sim_creditFraud
         run: |
           pip install flake8
           flake8 src tests
@@ -35,8 +36,3 @@ jobs:
         run: |
           pip install pytest
           pytest -q
-          
-      - name: Build Docker image      
-      	working-directory: projects/sim_creditFraud
-        run: |
-          docker build -t sim-credit-fraud .
