@@ -45,3 +45,8 @@ jobs:
         run: |
           pip install pytest
           PYTHONPATH=./projects/${{ matrix.project }} pytest ./projects/${{ matrix.project }}
+          
+      - name: Build Docker image
+        run: |
+          docker build -t sim-credit-fraud ./projects/sim_creditFraud
+            
