@@ -9,6 +9,62 @@ miguel@BeAsT:~/Deployment/MLOps/projects$ cd ml_template/
 miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ mkdir -p {data,notebooks,src,models,api,tests}
 miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ touch README.md
 miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ touch requirements.txt
-  
+
+# Now, we set the virtual environment locally for Python:
+This is the right order: Virtual environment → 2. .gitignore → 3. requirements → 4. CI/CD
+cd into right project folder
+miguel@BeAsT:~$ cd Deployment/MLOps/projects/ml_template/
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ pyenv local 3.12.3
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ pyenv versions  
+* 3.12.3 (set by /home/miguel/Deployment/MLOps/projects/ml_template/.python-version)
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ python3.12 -m venv .venv
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ which python
+/home/miguel/.pyenv/shims/python
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ source .venv/bin/activate => we need to activate the environment!
+(.venv) miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ which pip
+/home/miguel/Deployment/MLOps/projects/ml_template/.venv/bin/pip => nice check
+(.venv) miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ which python
+/home/miguel/Deployment/MLOps/projects/ml_template/.venv/bin/python => nice check
+(.venv) miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ pip3.12 install --upgrade pip
+Requirement already satisfied: pip in ./.venv/lib/python3.12/site-packages (24.0)
+Successfully installed pip-26.1.1
+(.venv) miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ python -c "import sys; print(sys.executable)"
+/home/miguel/Deployment/MLOps/projects/ml_template/.venv/bin/python => nice check
+
+# add __init__.py inside /src
+miguel@BeAsT:~$ cd Deployment/MLOps/projects/ml_template/src
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template/src$ touch __init__.py
+
+# this has been done already
+# configure .gitignore in root MLOps folder
+miguel@BeAsT:~/Deployment/MLOps$ xed .gitignore
+
+8) Add CI/CD (Highly Recommended)
+Inside .github/workflows/ci.yml:
+    Run tests
+    Lint code
+    Optionally build Docker images
+This shows real MLOps maturity.
+
+# create the test_train.py file inside /tests
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template/tests$
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template/tests$ touch test_train.py
+# paste this inside
+from src.train import train_model
+
+def test_training_pipeline_runs():
+    model = train_model()
+
+    assert model is not None
+    assert "model" in model
+    assert "accuracy" in model
+    assert 0 <= model["accuracy"] <= 1
+
+
+# commit and push
+git add .
+git commit -m "Fix pytest discovery by renaming test file"
+git push
+
 
 
