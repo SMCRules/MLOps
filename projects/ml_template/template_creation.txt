@@ -63,8 +63,37 @@ def test_training_pipeline_runs():
 
 # commit and push
 git add .
-git commit -m "Fix pytest discovery by renaming test file"
-git push
+git commit -m "tests/test_train and src/__init__.py"
+git push -u origin feature_template
+
+# create a real source function /src/train.py
+miguel@BeAsT:~/Deployment/MLOps/projects/ml_template/src$ touch train.py
+#paste inside
+def train_model():
+    # simulate a trained model
+    return {
+        "model": "dummy_model",
+        "accuracy": 0.85
+    }
+    
+# CI/CD setup
+~/Deployment/MLOps/projects/ml_template/requirements.txt 
+must have inside
+pytest 
+flake8 
+
+git add .
+git commit -m "Add requirements.txt for CI"
+git -u origin feature_template  
+    
+    
+
+# finish with
+run locally
+pip install -r requirements.txt
+pip install pytest
+python -m pytest
+(.venv) miguel@BeAsT:~/Deployment/MLOps/projects/ml_template$ python -m pytest
 
 
 
