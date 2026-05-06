@@ -84,10 +84,35 @@ flake8
 
 git add .
 git commit -m "Add requirements.txt for CI"
-git -u origin feature_template  
-    
-    
+git push -u origin feature_template
 
+# add CI file to .github/workflows/ci.yml: NO!!
+miguel@BeAsT:~/Deployment/MLOps/.github/workflows$ ls
+ci.yml
+The existing ci.yml runs for the entire repository, not per folder
+👉 For both:
+projects/sim_creditFraud
+projects/ml_template
+
+✅ Best practice (multi-project repo)
+You want CI to run for each project independently.
+
+🟡 Option 3 (advanced, future)
+Separate CI per project:
+projects/sim_creditFraud/.github/workflows/ci.yml
+projects/ml_template/.github/workflows/ci.yml
+
+The updated Matrix CI file can be found at root repo MLOps
+miguel@BeAsT:~/Deployment/MLOps/.github/workflows$ xed ci.yml
+
+this is the main idea of a matrix ci.yml file
+strategy:
+      matrix:
+        project:
+          - sim_creditFraud
+          - ml_template
+ 
+    
 # finish with
 run locally
 pip install -r requirements.txt
