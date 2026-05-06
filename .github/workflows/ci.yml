@@ -46,7 +46,8 @@ jobs:
           pip install pytest
           PYTHONPATH=./projects/${{ matrix.project }} pytest ./projects/${{ matrix.project }}
           
-      - name: Build Docker image
+      - name: Build Docker image (sim_creditFraud only)
+        if: matrix.project == 'sim_creditFraud'
         run: |
           docker build -t sim-credit-fraud ./projects/sim_creditFraud
             
